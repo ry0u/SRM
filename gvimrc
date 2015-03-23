@@ -34,6 +34,8 @@ set nobackup
 set number
 set autoindent
 set smartindent
+set columns=106
+set lines=42
 
 "tab
 nmap <Tab> gt

@@ -1,40 +1,8 @@
-" All system-wide defaults are set in $VIMRUNTIME/debian.vim and sourced by
-" the call to :runtime you can find below.  If you wish to change any of those
-" settings, you should do it in this file (/etc/vim/vimrc), since debian.vim
-" will be overwritten everytime an upgrade of the vim packages is performed.
-" It is recommended to make changes after sourcing debian.vim since it alters
-" the value of the 'compatible' option.
-
-" This line should not be removed as it ensures that various options are
-" properly set to work with the Vim-related packages available in Debian.
 runtime! debian.vim
 
-" Uncomment the next line to make Vim more Vi-compatible
-" NOTE: debian.vim sets 'nocompatible'.  Setting 'compatible' changes numerous
-" options, so any other options should be set AFTER setting 'compatible'.
-"set compatible
-
-" Vim5 and later versions support syntax highlighting. Uncommenting the next
-" line enables syntax highlighting by default.
 if has("syntax")
   syntax on
 endif
-
-" If using a dark background within the editing area and syntax highlighting
-" turn on this option as well
-"set background=dark
-
-" Uncomment the following to have Vim jump to the last position when
-" reopening a file
-"if has("autocmd")
-"  au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
-"endif
-
-" Uncomment the following to have Vim load indentation rules and plugins
-" according to the detected filetype.
-"if has("autocmd")
-"  filetype plugin indent on
-"endif
 
 " The following are commented out as they cause vim to behave a lot
 " differently from regular Vi. They are highly recommended though.
@@ -66,10 +34,18 @@ NeoBundle 'scrooloose/nerdtree'
 NeoBundle "Shougo/neocomplete.vim"
 NeoBundle 'Shougo/neosnippet'
 NeoBundle 'Shougo/neosnippet-snippets'
+NeoBundle "scrooloose/syntastic"
+NeoBundle 'Townk/vim-autoclose'
 
+"haskell
 NeoBundle 'kana/vim-filetype-haskell'
 NeoBundle 'eagletmt/ghcmod-vim'
 NeoBundle 'ujihisa/neco-ghc'
+
+NeoBundle "tyru/caw.vim.git"
+
+NeoBundle 'vim-jp/cpp-vim'
+NeoBundle 'octol/vim-cpp-enhanced-highlight'
 
 call neobundle#end()
 
@@ -113,12 +89,25 @@ let g:neocomplete#enable_at_startup = 1
 let g:neocomplete#auto_completion_start_length = 2
 let g:neocomplete#enable_underbar_completion = 1
 let g:neocomplete#include_paths = {
-\ 'cpp' : '.,\user\include/c++/4.8',
+			\ 'cpp' : '.,/usr/include/c++/4.8',
 \ }
 
 
-highlight Normal ctermbg=none
+"cpp-highlight
+let g:cpp_class_scope_highlight = 1
+let g:cpp_experimental_template_highlight = 1
 
+"highlight Normal ctermbg=none
+
+"syntastic
+let g:syntastic_check_on_open=0
+let g:syntastic_check_on_wq=0
+" C
+let g:syntastic_c_check_header = 1
+" C++
+let g:syntastic_cpp_check_header = 1
+
+"Transset 
 function! s:Transset(opacity)
 call system('transset-df --id ' . v:windowid . ' ' . a:opacity)
 endfunction
@@ -128,6 +117,7 @@ noremap <c-e> :<c-u>:call ExecuteNERDTree()<cr>
 </cr></c-u></c-e>
 
 
+"include 
 let g:neocomplete#sources#include#paths ={
 			\ 'cpp': '.,/usr/include/c++/4.8',
 \ 'c': '.,/usr/include',
@@ -140,7 +130,7 @@ let g:neocomplete#sources#include#paths ={
 let g:neosnippet#enable_snipmate_compatibility = 1
  
 " Tell Neosnippet about the other snippets
-let g:neosnippet#snippets_directory='~/.vim/bundle/neosnippet-snippets/neosnippets'
+let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets'
 
 imap <C-k>     <Plug>(neosnippet_expand_or_jump)
 smap <C-k>     <Plug>(neosnippet_expand_or_jump)
@@ -153,6 +143,11 @@ imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 \ "\<Plug>(neosnippet_expand_or_jump)"
 \: "\<TAB>"
+
+"caw comment out"
+nmap <Leader>c <Plug>(caw:i:toggle)
+vmap <Leader>c <Plug>(caw:i:toggle)
+
 
 filetype plugin indent on     " required!
 filetype indent on
