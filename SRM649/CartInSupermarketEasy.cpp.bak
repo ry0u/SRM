@@ -1,0 +1,57 @@
+// BEGIN CUT HERE
+
+// END CUT HERE
+#include <iostream>
+#include <string>
+#include <vector>
+#include <algorithm>
+#include <iterator>
+
+#define REP(i,k,n) for(int i=k;i<n;i++)
+#define rep(i,n) for(int i=0;i<n;i++)
+
+using namespace std;
+
+vector<vector<int> > M;
+
+int get(int n,int k)
+{
+	if(n == 1) return 1;
+	if(M[n][k] != -1){
+		return M[n][k];
+	}
+	M[n][k] = get(n-1,k) + 1;
+
+	if(k >= 1)
+	{
+		rep(i,n-2)
+		{
+			rep(j,k)
+			{
+				int sub = 1 + max(get(i+1,j), get(n-i-1,k-1-j));
+				if(sub < M[n][k])
+				{
+					M[n][k] = sub;
+				}
+			}
+		}
+	}
+
+	return M[n][k];
+}
+
+class CartInSupermarketEasy {
+	public:
+	int calc(int N, int K) {
+		M = vector<vector<int> >(N+1,vector<int>(K+1,-1));
+		rep(i,K+1) M[0][i] = 0;
+		return get(N,K);
+	}
+};
+
+// BEGIN CUT HERE
+int main() {
+CartInSupermarketEasy ___test;
+	cout << ___test.calc(15,4) << endl;
+}
+// END CUT HERE
