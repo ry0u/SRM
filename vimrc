@@ -44,8 +44,18 @@ NeoBundle 'ujihisa/neco-ghc'
 
 NeoBundle "tyru/caw.vim.git"
 
+"cpp
 NeoBundle 'vim-jp/cpp-vim'
 NeoBundle 'octol/vim-cpp-enhanced-highlight'
+
+NeoBundle 'Shougo/vimproc', {
+  \ 'build' : {
+  \     'windows' : 'make -f make_mingw32.mak',
+  \     'cygwin' : 'make -f make_cygwin.mak',
+  \     'mac' : 'make -f make_mac.mak',
+  \     'unix' : 'make -f make_unix.mak'
+  \    }
+  \ }
 
 call neobundle#end()
 
@@ -107,16 +117,6 @@ let g:syntastic_c_check_header = 1
 " C++
 let g:syntastic_cpp_check_header = 1
 
-"Transset 
-function! s:Transset(opacity)
-call system('transset-df --id ' . v:windowid . ' ' . a:opacity)
-endfunction
-command! -nargs=1 Transset call <SID>Transset(<q-args>) 
-
-noremap <c-e> :<c-u>:call ExecuteNERDTree()<cr>
-</cr></c-u></c-e>
-
-
 "include 
 let g:neocomplete#sources#include#paths ={
 			\ 'cpp': '.,/usr/include/c++/4.8',
@@ -143,6 +143,9 @@ imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 \ "\<Plug>(neosnippet_expand_or_jump)"
 \: "\<TAB>"
+
+noremap <c-e> :<c-u>:call ExecuteNERDTree()<cr>
+
 
 "caw comment out"
 nmap <Leader>c <Plug>(caw:i:toggle)
