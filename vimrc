@@ -59,6 +59,14 @@ NeoBundle 'Shougo/vimproc.vim', {
 \    },
 \ }
 
+"Markdown
+NeoBundle "godlygeek/tabular"
+NeoBundle "joker1007/vim-markdown-quote-syntax"
+NeoBundle "rcmdnk/vim-markdown"
+NeoBundle 'tukiyo/previm'
+NeoBundle 'tyru/open-browser.vim'
+
+
 call neobundle#end()
 
 NeoBundleCheck
@@ -139,9 +147,22 @@ let g:quickrun_config = {
 \   "_" : {
 \       "outputter/buffer/split" : ":botright 3sp",
 \       "outputter/buffer/close_on_empty" : 1,
-\		"hook/time/enable" : 1
+\	"hook/time/enable" : 1
+\   },
+\   "tex" : {
+\	'command': 'ptex2pdf',
+\	'exec': ['%c -l "%S:t:r.tex"','evince "%S:t:r.pdf"']
 \   },
 \}
+
+"Markdown
+let g:vim_markdown_liquid=1
+let g:vim_markdown_frontmatter=1
+let g:vim_markdown_math=1
+au BufRead,BufNewFile *.md set filetype=markdown
+
+"Previm
+cmap po PrevimOpen
 
 cmap qr QuickRun
 cmap QR QuickRun
@@ -157,6 +178,7 @@ nnoremap <expr><silent> <C-c> quickrun#is_running() ? quickrun#sweep_sessions() 
 imap <C-k>     <Plug>(neosnippet_expand_or_jump)
 smap <C-k>     <Plug>(neosnippet_expand_or_jump)
 xmap <C-k>     <Plug>(neosnippet_expand_target)
+cmap nt NERDTree
 
 " SuperTab like snippets behavior.
 imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
