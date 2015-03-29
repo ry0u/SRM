@@ -36,6 +36,7 @@ NeoBundle 'Shougo/neosnippet'
 NeoBundle 'Shougo/neosnippet-snippets'
 NeoBundle "scrooloose/syntastic"
 NeoBundle 'Townk/vim-autoclose'
+NeoBundle 'thinca/vim-quickrun'
 
 "haskell
 NeoBundle 'kana/vim-filetype-haskell'
@@ -48,14 +49,15 @@ NeoBundle "tyru/caw.vim.git"
 NeoBundle 'vim-jp/cpp-vim'
 NeoBundle 'octol/vim-cpp-enhanced-highlight'
 
-NeoBundle 'Shougo/vimproc', {
-  \ 'build' : {
-  \     'windows' : 'make -f make_mingw32.mak',
-  \     'cygwin' : 'make -f make_cygwin.mak',
-  \     'mac' : 'make -f make_mac.mak',
-  \     'unix' : 'make -f make_unix.mak'
-  \    }
-  \ }
+NeoBundle 'Shougo/vimproc.vim', {
+\ 'build' : {
+\     'windows' : 'tools\\update-dll-mingw',
+\     'cygwin' : 'make -f make_cygwin.mak',
+\     'mac' : 'make -f make_mac.mak',
+\     'linux' : 'make',
+\     'unix' : 'gmake',
+\    },
+\ }
 
 call neobundle#end()
 
@@ -132,6 +134,26 @@ let g:neosnippet#enable_snipmate_compatibility = 1
 " Tell Neosnippet about the other snippets
 let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets'
 
+"quickrun
+let g:quickrun_config = {
+\   "_" : {
+\       "outputter/buffer/split" : ":botright 3sp",
+\       "outputter/buffer/close_on_empty" : 1,
+\		"hook/time/enable" : 1
+\   },
+\}
+
+cmap qr QuickRun
+cmap QR QuickRun
+
+command! -nargs=0 QC call CloseQuickRunWindow()
+function! CloseQuickRunWindow()
+    execute "normal \<c-c>\<c-w>jZZ"
+endfunction
+cmap qc QC
+
+nnoremap <expr><silent> <C-c> quickrun#is_running() ? quickrun#sweep_sessions() : "\<C-c>"
+
 imap <C-k>     <Plug>(neosnippet_expand_or_jump)
 smap <C-k>     <Plug>(neosnippet_expand_or_jump)
 xmap <C-k>     <Plug>(neosnippet_expand_target)
@@ -151,6 +173,7 @@ noremap <c-e> :<c-u>:call ExecuteNERDTree()<cr>
 nmap <Leader>c <Plug>(caw:i:toggle)
 vmap <Leader>c <Plug>(caw:i:toggle)
 
+colorscheme ron
 
 filetype plugin indent on     " required!
 filetype indent on
