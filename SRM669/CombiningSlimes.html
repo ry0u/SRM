@@ -1,0 +1,28 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+The idols Ami and Mami like playing games.
+Today they bought a new game.
+At the beginning of the game a group of slimes appears on the screen.
+In each turn of the game the player can select any two of the slimes and merge them together.
+The game ends when there is only one slime left.
+</p><p>
+Each slime has a positive integer size.
+Whenever the player merges two slimes, the size of the merged slime is x+y, where x and y are the sizes of the two merged slimes.
+Additionally, the player is awarded x*y mascots for performing this merge.
+</p><p>
+Ami and Mami have just started a new game.
+You are given a vector &lt;int&gt; <b>a</b> containing the initial sizes of all slimes.
+Ami and Mami really like mascots.
+Find and return the maximum total number of mascots they can obtain during the game.
+</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>CombiningSlimes</td></tr><tr><td>Method:</td><td>maxMascots</td></tr><tr><td>Parameters:</td><td>vector &lt;int&gt;</td></tr><tr><td>Returns:</td><td>int</td></tr><tr><td>Method signature:</td><td>int maxMascots(vector &lt;int&gt; a)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr><tr><td>Stack limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>a</b> will contain between 2 and 100 elements, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>Each element of <b>a</b> will be between 1 and 100, inclusive.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{3,4}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 12</pre></td></tr><tr><td><table><tr><td colspan="2">There are two slimes, their sizes are 3 and 4.
+There is only one possible move: we merge them into a single slime of size 7.
+Doing so gives us 3*4 = 12 mascots.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{2,2,2}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 12</pre></td></tr><tr><td><table><tr><td colspan="2">In the first turn we will merge any two slimes.
+The size of the new slime will be 2+2 = 4, and we will gain 2*2 = 4 mascots.
+In the second turn we will merge the two remaining slimes.
+The size of the final slime will be 4+2 = 6.
+The second merge will give us 4*2 = 8 mascots.
+Hence, the total number of mascots we will obtain is 4 + 8 = 12.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{1,2,3}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 11</pre></td></tr><tr><td><table><tr><td colspan="2">One optimal solution looks as follows:
+First, merge slimes of sizes 1 and 3.
+This produces a slime of size 4, and we get 3 mascots.
+Then, merge slimes of sizes 4 and 2.
+This produces a slime of size 6, and we get 8 mascots.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{3,1,2}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 11</pre></td></tr><tr><td><table><tr><td colspan="2">The set of slimes is the same as in Example 2, therefore the correct answer is also the same.
+As we can merge any two slimes, their order in <b>a</b> does not matter.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">4)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{7,6,5,3,4,6}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 395</pre></td></tr><tr><td><table><tr><td colspan="2"></td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

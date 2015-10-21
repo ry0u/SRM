@@ -1,0 +1,36 @@
+<html><body bgcolor="#000000" text="#ffffff"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+Given is an int <b>N</b>.
+</p><p>
+A <i>complete</i> graph is a graph in which each pair of vertices is connected by exactly one undirected edge.
+</p><p>
+A graph is called <i>beautiful</i> if:
+<ul>
+<li>It is a complete graph on <b>N</b> vertices.</li>
+<li>Each edge has an associated cost, and each of these costs is either 1 or 2.</li>
+</ul>
+Hence, there are exactly 2^(<b>N</b>*(<b>N</b>-1)/2) different beautiful graphs.
+</p><p>
+The <i>minimum spanning tree</i> (MST) of a beautiful graph is its subgraph with the following properties:
+<ul>
+<li>The subgraph contains all <b>N</b> vertices.</li>
+<li>The subgraph is connected. (I.e., it is possible to get from any vertex to any other vertex using only edges that belong to the subgraph.)</li>
+<li>The total cost of edges in the subgraph is as small as possible.</li>
+</ul>
+A single beautiful graph can have multiple MSTs.
+(Each of these MSTs will contain a different set of edges, but they will have the same total cost.)
+</p><p>
+An MST is called a <i>line</i> if the degree of each of its vertices is at most 2.<br></br>
+</p><p>
+Hibiki likes MSTs.
+She also likes lines.
+For each beautiful graph G, let f(G) be the number of its MSTs that are lines.
+(Note that for some beautiful graphs it may be the case that f(G)=0.)
+</p><p>
+Let X be the sum of the values f(G) over all beautiful graphs G.
+Please calculate X for her.
+As X can be very large, compute and return the value (X modulo 1,000,000,007).
+</p></td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>LineMSTDiv2</td></tr><tr><td>Method:</td><td>count</td></tr><tr><td>Parameters:</td><td>int</td></tr><tr><td>Returns:</td><td>int</td></tr><tr><td>Method signature:</td><td>int count(int N)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td colspan="2"><h3>Limits</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Time limit (s):</td><td>2.000</td></tr><tr><td>Memory limit (MB):</td><td>256</td></tr><tr><td>Stack limit (MB):</td><td>256</td></tr></table></td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>N</b> will be between 2 and 16, inclusive.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>3</pre></td></tr></table></td></tr><tr><td><pre>Returns: 15</pre></td></tr><tr><td><table><tr><td colspan="2">Beautiful graphs are complete graphs on 3 vertices in which each edge has cost either 1 or 2.
+There are 8 such graphs.
+Some of these graphs have more than one MST.
+For example, the graph in which each edge has cost 1 has three different MSTs.
+In this case, each of those three MSTs is a line, so we count each of them.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>2</pre></td></tr></table></td></tr><tr><td><pre>Returns: 2</pre></td></tr><tr><td><table><tr><td colspan="2">There are only 2 beautiful graphs. The value of f is 1 for both graphs, so the answer is 2.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>16</pre></td></tr></table></td></tr><tr><td><pre>Returns: 682141922</pre></td></tr><tr><td><table><tr><td colspan="2">Don't forget to take modulo.</td></tr></table></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>
