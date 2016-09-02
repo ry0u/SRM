@@ -1,0 +1,176 @@
+// BEGIN CUT HERE
+
+// END CUT HERE
+#line 5 "KMonotonic.cpp"
+
+#include <iostream>
+#include <sstream>
+#include <vector>
+#include <string>
+#include <cstring>
+#include <algorithm>
+#include <map>
+#include <set>
+#include <queue>
+
+#define REP(i,k,n) for(int i=k;i<n;i++)
+#define rep(i,n) for(int i=0;i<n;i++)
+#define each(it,v) for(__typeof((v).begin()) it=(v).begin();it!=(v).end();it++)
+#define INF 1<<30
+#define mp make_pair
+
+using namespace std;
+typedef long long ll;
+typedef pair<int, int> P;
+
+const int GETA = 100;
+int dp[55][55][55*55], up[55][55], down[55][55];
+
+int memo[55][55][55*55];
+
+int dfs(int l, int r, int k) {
+	if(memo[l][r][k] != -1) return memo[l][r][k];
+	if(k == 1) return min(up[l][r], down[l][r]);
+
+	int ret = INF;
+	REP(i, l + 1, r) {
+		ret = min(ret, dfs(l, i, 1) + dfs(i, r, k - 1));
+	}
+
+	return memo[l][r][k] = ret;
+}
+
+class KMonotonic {
+	public:
+	int transform(vector <int> sequence, int K) {
+		int n = sequence.size();
+		vector<int> v;
+		rep(i, n) {
+			REP(j, -n, n + 1) v.push_back(sequence[i] + j);
+		}
+		sort(v.begin(), v.end());
+		v.erase(unique(v.begin(),v.end()),v.end());
+		int m = v.size();
+
+		// cout << " v : ";
+		// rep(i, m) cout << v[i] << " ";
+		// cout << endl;
+
+		{
+			rep(i, 55) rep(j, 55) {
+				up[i][j] = INF;
+				rep(k, 55 * 55) dp[i][j][k] = INF;
+			}
+
+			rep(i, n) {
+				int res = INF;
+				rep(j, m) {
+					res = min(res, abs(sequence[i] - v[j]));
+					dp[i][i+1][j] = res;
+				}
+			}
+
+			rep(i, n) {
+				REP(j, i + 1, n) {
+					REP(k, 1, m) {
+						dp[i][j+1][k] = min(dp[i][j+1][k], dp[i][j][k-1] + abs(sequence[j] - v[k]));
+						dp[i][j+1][k] = min(dp[i][j+1][k], dp[i][j+1][k-1]);
+					}
+				}
+			}
+
+			rep(i, n) {
+				REP(j, i + 1, n + 1) {
+					rep(k, m) {
+						up[i][j] = min(up[i][j], dp[i][j][k]);
+					}
+				}
+			}
+		}
+		{
+			reverse(v.begin(), v.end());
+			rep(i, 55) rep(j, 55) {
+				down[i][j] = INF;
+				rep(k, 55 * 55) dp[i][j][k] = INF;
+			}
+
+			rep(i, n) {
+				int res = INF;
+				rep(j, m) {
+					res = min(res, abs(sequence[i] - v[j]));
+					dp[i][i+1][j] = res;
+				}
+			}
+
+			rep(i, n) {
+				REP(j, i + 1, n) {
+					REP(k, 1, m) {
+						dp[i][j+1][k] = min(dp[i][j+1][k], dp[i][j][k-1] + abs(sequence[j] - v[k]));
+						dp[i][j+1][k] = min(dp[i][j+1][k], dp[i][j+1][k-1]);
+					}
+				}
+			}
+			
+			rep(i, n) {
+				REP(j, i + 1, n + 1) {
+					rep(k, m) {
+						down[i][j] = min(down[i][j], dp[i][j][k]);
+					}
+				}
+			}
+		}
+
+		// cout << " up " << endl;
+		// rep(i, n) {
+		// 	rep(j, n + 1) {
+		// 		if(up[i][j] == INF) cout << "X ";
+		// 		else cout << up[i][j] << " ";
+		// 	}
+		// 	cout << endl;
+		// }
+		//
+		// cout << " down " << endl;
+		// rep(i, n) {
+		// 	rep(j, n + 1) {
+		// 		if(down[i][j] == INF) cout << "X ";
+		// 		else cout << down[i][j] << " ";
+		// 	}
+		// 	cout << endl;
+		// }
+
+		rep(i, n) rep(j, n + 1) rep(k, m) memo[i][j][k] = -1;
+		int ret = dfs(0, n, K);
+		return ret;
+	}
+
+	
+// BEGIN CUT HERE
+	public:
+	void run_test(int Case) { if ((Case == -1) || (Case == 0)) test_case_0(); if ((Case == -1) || (Case == 1)) test_case_1(); if ((Case == -1) || (Case == 2)) test_case_2(); if ((Case == -1) || (Case == 3)) test_case_3(); if ((Case == -1) || (Case == 4)) test_case_4(); if ((Case == -1) || (Case == 5)) test_case_5(); if ((Case == -1) || (Case == 6)) test_case_6(); }
+	private:
+	template <typename T> string print_array(const vector<T> &V) { ostringstream os; os << "{ "; for (typename vector<T>::const_iterator iter = V.begin(); iter != V.end(); ++iter) os << '\"' << *iter << "\","; os << " }"; return os.str(); }
+	void verify_case(int Case, const int &Expected, const int &Received) { cerr << "Test Case #" << Case << "..."; if (Expected == Received) cerr << "PASSED" << endl; else { cerr << "FAILED" << endl; cerr << "\tExpected: \"" << Expected << '\"' << endl; cerr << "\tReceived: \"" << Received << '\"' << endl; } }
+	void test_case_0() { int Arr0[] = {1,1,1,1}; vector <int> Arg0(Arr0, Arr0 + (sizeof(Arr0) / sizeof(Arr0[0]))); int Arg1 = 1; int Arg2 = 4; verify_case(0, Arg2, transform(Arg0, Arg1)); }
+	void test_case_1() { int Arr0[] = {1,1,1,1}; vector <int> Arg0(Arr0, Arr0 + (sizeof(Arr0) / sizeof(Arr0[0]))); int Arg1 = 2; int Arg2 = 2; verify_case(1, Arg2, transform(Arg0, Arg1)); }
+	void test_case_2() { int Arr0[] = {1,1,1,1}; vector <int> Arg0(Arr0, Arr0 + (sizeof(Arr0) / sizeof(Arr0[0]))); int Arg1 = 4; int Arg2 = 0; verify_case(2, Arg2, transform(Arg0, Arg1)); }
+	void test_case_3() { int Arr0[] = {1,2,3,3,2,1}; vector <int> Arg0(Arr0, Arr0 + (sizeof(Arr0) / sizeof(Arr0[0]))); int Arg1 = 1; int Arg2 = 9; verify_case(3, Arg2, transform(Arg0, Arg1)); }
+	void test_case_4() { int Arr0[] = {1,3,2,3,2,4}; vector <int> Arg0(Arr0, Arr0 + (sizeof(Arr0) / sizeof(Arr0[0]))); int Arg1 = 1; int Arg2 = 6; verify_case(4, Arg2, transform(Arg0, Arg1)); }
+	void test_case_5() { int Arr0[] = {1,10,4,2,5,1,3,2,4,6,1}; vector <int> Arg0(Arr0, Arr0 + (sizeof(Arr0) / sizeof(Arr0[0]))); int Arg1 = 3; int Arg2 = 11; verify_case(5, Arg2, transform(Arg0, Arg1)); }
+	void test_case_6() { int Arr0[] = {-913,-4158,-146,-2625,-2926,3071,297,4049,-4566,3581,-2070,-1794,1953,4434,4351,-710,-3124,2148,1192,1802,644}; vector <int> Arg0(Arr0, Arr0 + (sizeof(Arr0) / sizeof(Arr0[0]))); int Arg1 = 8; int Arg2 = 611; verify_case(6, Arg2, transform(Arg0, Arg1)); }
+
+// END CUT HERE
+
+};
+
+
+// BEGIN CUT HERE
+
+int main() {
+
+    KMonotonic ___test;
+
+    ___test.run_test(-1);
+
+}
+
+// END CUT HERE
