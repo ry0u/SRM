@@ -1,0 +1,128 @@
+// BEGIN CUT HERE
+
+// END CUT HERE
+#line 5 "MazeConstruct.cpp"
+#include <bits/stdc++.h>
+
+#define rep(i,n) for(int i=0;i<(int)(n);i++)
+#define REP(i,k,n) for(int i=k;i<(int)(n);i++)
+#define each(it,v) for(__typeof((v).begin()) it=(v).begin();it!=(v).end();it++)
+#define INF 1<<30
+#define mp make_pair
+
+#define fi first
+#define se second
+
+using namespace std;
+typedef long long ll;
+typedef pair<int, int> P;
+
+int dx[4] = {1,0,-1,0};
+int dy[4] = {0,1,0,-1};
+
+class MazeConstruct {
+	public:
+	vector <string> construct(int k) {
+		set<int> s;
+		int H = -1;
+		int W = -1;
+		int K = -1;
+
+		REP(h, 1, 51) {
+			REP(w, h, 51) {
+				int t = (w - 1) / 4;
+				int a = (h - 1) + (w - 1);
+				rep(i, h) {
+					int x = a + t * 2 * i;
+					if(x <= 1000) {
+						s.insert(x);
+
+						if(x == k) {
+							H = h;
+							W = w;
+							K = i;
+						}
+					}
+				}
+			}
+		}
+
+		// cout << "select:" << H << " " << W << " " << K << endl;
+
+		string a = "";
+		rep(i, H) a += ".";
+
+		string b = a;
+		rep(i, K) b[i] = '#';
+		REP(i, K + 1, H) b[i] = '#';
+
+		string c = a;
+		REP(i, 1, H) c[i] = '#';
+
+		string d = a;
+		REP(i, 2, H) d[i] = '#';
+
+
+		// cout << "a:" << a << endl;
+		// cout << "b:" << b << endl;
+		// cout << "c:" << c << endl;
+		// cout << "d:" << d << endl;
+
+		int cnt = 0;
+		vector<string> ans(W);
+		ans[0] = a;
+
+		REP(i, 1, W) {
+			if(i % 2 == 0) {
+				ans[i] = d;
+			} else {
+				if(cnt % 2 == 0) {
+					ans[i] = c;
+				} else {
+					ans[i] = b;
+				}
+				cnt++;
+			}
+		}
+
+		vector<string> res(H);
+		rep(i, H) {
+			res[i] = "";
+			rep(j, W) {
+				res[i] += ans[j][H-1-i];
+			}
+		}
+		rep(i, H) cout << res[i] << endl;
+
+		return res;
+	}
+
+	
+// BEGIN CUT HERE
+	public:
+	void run_test(int Case) { if ((Case == -1) || (Case == 0)) test_case_0(); if ((Case == -1) || (Case == 1)) test_case_1(); if ((Case == -1) || (Case == 2)) test_case_2(); }
+	private:
+	template <typename T> string print_array(const vector<T> &V) { ostringstream os; os << "{ "; for (typename vector<T>::const_iterator iter = V.begin(); iter != V.end(); ++iter) os << '\"' << *iter << "\","; os << " }"; return os.str(); }
+	void verify_case(int Case, const vector <string> &Expected, const vector <string> &Received) { cerr << "Test Case #" << Case << "..."; if (Expected == Received) cerr << "PASSED" << endl; else { cerr << "FAILED" << endl; cerr << "\tExpected: " << print_array(Expected) << endl; cerr << "\tReceived: " << print_array(Received) << endl; } }
+	void test_case_0() { int Arg0 = 3; string Arr1[] = {"...." }; vector <string> Arg1(Arr1, Arr1 + (sizeof(Arr1) / sizeof(Arr1[0]))); verify_case(0, Arg1, construct(Arg0)); }
+	void test_case_1() { int Arg0 = 4; string Arr1[] = {"...", "...", "..." }; vector <string> Arg1(Arr1, Arr1 + (sizeof(Arr1) / sizeof(Arr1[0]))); verify_case(1, Arg1, construct(Arg0)); }
+	void test_case_2() { int Arg0 = 10; string Arr1[] = {"..#..", "#.#..", "..#..", ".#...", "....." }; vector <string> Arg1(Arr1, Arr1 + (sizeof(Arr1) / sizeof(Arr1[0]))); verify_case(2, Arg1, construct(Arg0)); }
+
+// END CUT HERE
+
+};
+
+
+// BEGIN CUT HERE
+
+int main() {
+
+    MazeConstruct ___test;
+
+    ___test.run_test(-1);
+
+	vector<string> ret = ___test.construct(999);
+	rep(i, ret.size()) cout << ret[i] << endl;
+}
+
+// END CUT HERE
